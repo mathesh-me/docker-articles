@@ -61,6 +61,15 @@ WORKDIR /app
 ```
 Now running `docker build ./Dockerfile_location` will fail if there are any warnings in the Dockerfile.<br>
 
+### Example Working:
+
+I used this [Dockerfile](./Dockerfile) for Hands-On Purpose. You can also test Docker Build checks feature by using this same file. If you already have some other files to check Best Practices. You can also use that.
+
+![Screenshot 2024-11-22 183254](https://github.com/user-attachments/assets/d8526718-bf02-4089-ac66-699b0f0c5b4f)
+
+![Screenshot 2024-11-22 183335](https://github.com/user-attachments/assets/dc2f14c2-c946-4bc0-a0f4-d588303ffcc3)
+
+
 ### With GitHub Actions
 
 You can also run Docker Build Checks in your GitHub Actions workflow to check your Dockerfile for any issues and warnings before you build your Docker image. 
