@@ -61,7 +61,7 @@ WORKDIR /app
 ```
 Now running `docker build ./Dockerfile_location` will fail if there are any warnings in the Dockerfile.<br>
 
-### Example Working:
+### Example Working
 
 I used this [Dockerfile](./Dockerfile) for Hands-On Purpose. You can also test Docker Build checks feature by using this same file. If you already have some other files to check Best Practices. You can also use that.
 
