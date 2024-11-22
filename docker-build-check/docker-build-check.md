@@ -1,6 +1,6 @@
 ## Docker Build Checks: A Simple Linter for Dockerfiles
 
-***Docker Build Checks are used to check your Dockerfile build configiurations for issues, build options, and best practices.*** It is kind of advanced Linter that you can use to check your Dockerfile for any issues and warnings before you build your Docker image. It's just like running a dry-run of your Dockerfile to check if there are any issues or warnings before you build your Docker image.<br>
+***Docker Build Checks are used to check your Dockerfile build configurations for issues, build options, and best practices.*** It is kind of advanced Linter that you can use to check your Dockerfile for any issues and warnings before you build your Docker image. It's just like running a dry-run of your Dockerfile to check if there are any issues or warnings before you build your Docker image.<br>
 
 You can check the list of checks that Docker Build Checks can perform by clicking [here](https://docs.docker.com/reference/build-checks/)
 
@@ -10,7 +10,7 @@ You can check the list of checks that Docker Build Checks can perform by clickin
 
 ### Prerequisites for Using Docker Build Checks
 
-`Docker buid check` is a feature introduced in `Dockerfile 1.8`. To run Docker Build Checks, you need to have `Docker Buildx` version `0.15.0` and later installed on your system. You can check the version of Docker Buildx installed on your system by running the following command:
+`Docker build check` is a feature introduced in `Dockerfile 1.8`. To run Docker Build Checks, you need to have `Docker Buildx` version `0.15.0` and later installed on your system. You can check the version of Docker Buildx installed on your system by running the following command:
 
 ```bash
 docker buildx version
