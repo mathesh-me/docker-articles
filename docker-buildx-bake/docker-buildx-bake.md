@@ -4,6 +4,10 @@
 
 The bake file can be written in `YAML`, `JSON`, or `HCL` format. I'm going to use `HCL` syntax for this article.
 
+### Working of Docker Bake
+
+![Docker Bake](https://github.com/user-attachments/assets/3213e25f-d94e-40ec-b74d-aa0b1df0b5b3)
+
 ### Prerequisites for Using Docker Build Checks
 
 `Docker buildx bake` is a feature introduced in `Docker 24.0`. To run Docker Build Checks, you need to have `Buildx CLI` installed on your system. You can check the version of Docker Buildx installed on your system by running the following command:
