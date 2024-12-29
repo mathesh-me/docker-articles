@@ -8,7 +8,7 @@ app.use(express.json());
 
 // API Endpoint
 app.get('/', (req, res) => {
-  res.send('Hello from the Backend!');
+  res.send('Hello from the Backend');
 });
 
 // Start the server
