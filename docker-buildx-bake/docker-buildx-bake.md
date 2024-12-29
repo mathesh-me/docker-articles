@@ -2,7 +2,7 @@
 
 `Docker buildx bake` is a feature that introduced in `Docker 24.0` . ***It helps us to build and push multiple images in parallel. It also helps in ease of use and maintainability for Build Configurations when running `docker buildx build` with multiple options.*** We can declare all the build configurations in a single declarative file and run `docker buildx bake` to build all the images in parallel and without specifying all the build configurations in a single command.<br>
 
-Bake file can be written in `YAML`, `JSON`, or `HCL` format.
+Bake file can be written in `YAML`, `JSON`, or `HCL` format. I'm gonna use `HCL` Syntax for these Article.
 
 ### Prerequisites for Using Docker Build Checks
 
@@ -287,7 +287,55 @@ I'll show you the demo of the above example at the end of this article.
 
 Let's see the demo of the above examples using Docker Buildx Bake.
 
-//Will add the demo steps here
+I'm gonna use the directory structure as I mentioned above for second use case(Build Multiple Images Parallely)
+
+```
+.
+├── docker-bake.hcl
+├── frontend
+│   ├── Dockerfile
+│   ├── index.html
+│   └── styles.css
+└── backend
+    ├── Dockerfile
+    ├── app.js
+    └── package.json
+
+```
+
+You can find all the files I used in this folder.
+
+1. `docker-bake.hcl` File:
+
+![Screenshot 2024-12-29 121204](https://github.com/user-attachments/assets/e48cffa7-286a-41d5-8d4d-01246f60a527)
+
+2. `Dockerfile` for Frontend:
+
+![Screenshot 2024-12-29 121352](https://github.com/user-attachments/assets/e427035c-bfe3-41a7-b6e2-19b7638117e0)
+
+3. `Dockerfile` for Backend:
+
+![Screenshot 2024-12-29 121406](https://github.com/user-attachments/assets/fbd6069c-0051-47a5-be05-3510af8082b5)
+
+Now I'm going to run `docker buildx bake` command to build the `frontend` and `backend` Images.
+
+![Screenshot 2024-12-29 121443](https://github.com/user-attachments/assets/2c95d574-f614-4cef-b3a0-893e720fb770)
+
+![Screenshot 2024-12-29 121459](https://github.com/user-attachments/assets/e4e5f8b3-b54e-4345-b993-1bba574a372d)
+
+Let's run the container from the Imnages,
+
+![Screenshot 2024-12-29 121825](https://github.com/user-attachments/assets/940e0759-1739-4c06-9ee6-4f2ff665f0a0)
+
+![Screenshot 2024-12-29 122129](https://github.com/user-attachments/assets/53807367-f8e5-48e9-afed-fdd8c93e4ead)
+
+Accessing the `Frontend` and `Backend`:
+
+![Screenshot 2024-12-29 121902](https://github.com/user-attachments/assets/e8da526f-f115-4f64-bfb0-0815dcf7b04b)
+
+![Screenshot 2024-12-29 122404](https://github.com/user-attachments/assets/07bba3b5-1909-4f2e-a9ee-8dc037f6a73a)
+
+
 
 ### Conclusion:
 
