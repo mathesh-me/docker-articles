@@ -1,8 +1,8 @@
 # Docker Bake 🐳
 
-`Docker buildx bake` is a feature that introduced in `Docker 24.0` . ***It helps us to build and push multiple images in parallel. It also helps in ease of use and maintainability for Build Configurations when running `docker buildx build` with multiple options.*** We can declare all the build configurations in a single declarative file and run `docker buildx bake` to build all the images in parallel and without specifying all the build configurations in a single command.<br>
+`Docker buildx bake` is a feature introduced in `Docker 24.0`. ***It helps us to build and push multiple images in parallel. It also helps in ease of use and maintainability for Build Configurations when running `docker buildx build` with multiple options.*** We can declare all the build configurations in a single declarative file and run `docker buildx bake` to build all the images in parallel without specifying all the build configurations in a single command.<br>
 
-Bake file can be written in `YAML`, `JSON`, or `HCL` format. I'm gonna use `HCL` Syntax for these Article.
+The bake file can be written in `YAML`, `JSON`, or `HCL` format. I'm going to use `HCL` syntax for this article.
 
 ### Prerequisites for Using Docker Build Checks
 
@@ -14,21 +14,21 @@ docker buildx version
 
 If you don't have Docker Buildx installed on your system, you can install it by running the following command:
 
-- For Debian/Ubuntu based systems:
+- For Debian/Ubuntu-based systems:
 
 ```bash
 apt install docker-buildx-plugin
 docker buildx install
 ```
 
-- For Fedora/CentOS based systems:
+- For Fedora/CentOS-based systems:
 
 ```bash
 yum install docker-buildx-plugin
 docker buildx install
 ```
 
-- If you have Docker Desktop installed on your system, Just update Docker Desktop to the latest version.<br>
+- If you have Docker Desktop installed on your system, just update Docker Desktop to the latest version.<br>
 
 ### Working with Docker Buildx Bake
 
@@ -37,7 +37,6 @@ Let's explore the power of Docker Buildx Bake with two real-world examples:
 1. **Managing Multiple Build Configurations with Docker Buildx Bake**<br>
 
 2. **Building and Pushing Multiple Images in Parallel with Docker Buildx Bake**<br>
-
 
 ### Managing Multiple Build Configurations with Docker Buildx Bake
 
@@ -76,7 +75,7 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-In the above Dockerfile, we can see there are many build configurations that need to be set when building the images(We need to set the `NODE_ENV` and `NGINX_CONFIG` build arguments when running `docker build` Command).
+In the above Dockerfile, we can see there are many build configurations that need to be set when building the images (we need to set the `NODE_ENV` and `NGINX_CONFIG` build arguments when running the `docker build` command).
 
 #### Dockerfile Structure:
 
@@ -88,7 +87,7 @@ In the above Dockerfile, we can see there are many build configurations that nee
 
 We can build the images using the following steps:<br>
 
-Now, If we want to build the images from the above Dockerfile, we need to run the `docker build` command with all the build configurations values defined in the command line.
+Now, if we want to build the images from the above Dockerfile, we need to run the `docker build` command with all the build configuration values defined in the command line.
 
 ```bash
 docker build \
@@ -103,11 +102,11 @@ This command will set the `NODE_ENV` and `NGINX_CONFIG` build arguments, disable
 
 #### Using Docker Buildx Bake
 
-Now everytime we need to build the images from the above Dockerfile, we need to run the `docker build` command with all the required build configurations. This can be difficult to manage when we have multiple build configurations and multiple build arguments needed to be defined for the images.<br>
+Now every time we need to build the images from the above Dockerfile, we need to run the `docker build` command with all the required build configurations. This can be difficult to manage when we have multiple build configurations and multiple build arguments needed to be defined for the images.<br>
 
-Let's say we have many images to build with multiple build configurations. And running commands with all the build configurations for each image can be difficult to manage.<br>
+Let's say we have many images to build with multiple build configurations. Running commands with all the build configurations for each image can be difficult to manage.<br>
 
-With Docker Buildx Bake, we can declare all the build configurations for all the images in a single file(Declarative way) and run `docker buildx bake` to build all the images easily.<br>
+With Docker Buildx Bake, we can declare all the build configurations for all the images in a single file (declarative way) and run `docker buildx bake` to build all the images easily.<br>
 
 **Let's create a `docker-bake.yaml` file with the following content:**
 
@@ -138,8 +137,8 @@ target "production" {
 
 **File Structure Explanation:**
 
-- `group` block is used to define the group of targets that
-- `target` block is used to define the build configuration for each target(image). We can also execute single target using `docker buildx bake builder`.
+- The `group` block is used to define the group of targets.
+- The `target` block is used to define the build configuration for each target (image). We can also execute a single target using `docker buildx bake builder`.
 - `context` is the path to the directory containing the Dockerfile.
 - `dockerfile` is the name of the Dockerfile.
 - `tags` is the list of tags for the image.
@@ -158,7 +157,7 @@ I'll show you the demo of the above example at the end of this article.
 
 ### Building and Pushing Multiple Images in Parallel with Docker Buildx Bake
 
-Let's say we have a application with frontend and backend with the below directory structure:
+Let's say we have an application with frontend and backend with the below directory structure:
 
 ```
 .
@@ -170,10 +169,9 @@ Let's say we have a application with frontend and backend with the below directo
     ├── Dockerfile
     ├── app.js
     └── package.json
-
 ```
 
-Normally for building the images from the above Dockerfiles, we need to run the `docker build` command for each Dockerfile.<br>
+Normally, for building the images from the above Dockerfiles, we need to run the `docker build` command for each Dockerfile.<br>
 
 1. Build the frontend image:
 ```bash
@@ -185,13 +183,13 @@ docker build -t frontend:1.0 ./frontend
 docker build -t backend:1.0 --build-arg NODE_ENV=production ./backend
 ```
 
-We can also combine the above two commands into a single command using `docker buildx build` command.
+We can also combine the above two commands into a single command using the `docker buildx build` command.
 
 ```bash
 docker buildx build -t frontend:1.0 -t backend:1.0 --build-arg NODE_ENV=production ./frontend ./backend
 ```
 
-But in this case too, we need to specify all the locations of the Dockerfiles and build configurations of a Dockerfiles in a single command. This can be difficult to manage when we have many `Dockerfiles` with multiple build configurations.<br>
+But in this case too, we need to specify all the locations of the Dockerfiles and build configurations of Dockerfiles in a single command. This can be difficult to manage when we have many `Dockerfiles` with multiple build configurations.<br>
 
 With Docker Buildx Bake, we can declare all the build configurations in a single file and run `docker buildx bake` to build all the images in parallel.
 
@@ -208,7 +206,6 @@ Let's create a `docker-bake.hcl` file with the following content:
     ├── Dockerfile
     ├── app.js
     └── package.json
-
 ```
 
 **Create a `docker-bake.hcl` file with the following content:**
@@ -244,14 +241,13 @@ target "backend" {
 
 **File Structure Explanation:**
 
-- `variable` block is used to define the variables that can be used in the build configurations.
-- `group` block is used to define the group of targets that
-- `target` block is used to define the build configuration for each target(image). We can also execute single target using `docker buildx bake frontend`.
+- The `variable` block is used to define the variables that can be used in the build configurations.
+- The `group` block is used to define the group of targets.
+- The `target` block is used to define the build configuration for each target (image). We can also execute a single target using `docker buildx bake frontend`.
 - `context` is the path to the directory containing the Dockerfile.
 - `dockerfile` is the name of the Dockerfile.
 - `tags` is the list of tags for the image.
 - `args` is the list of build arguments for the image.
-
 
 Now, we can run the following command to build the images from the above Dockerfiles:
 
@@ -259,7 +255,7 @@ Now, we can run the following command to build the images from the above Dockerf
 docker buildx bake -f docker-bake.hcl
 ```
 
-Now we don't need to provide the location of the Dockerfiles, build arguments and other options in the command line. We can just run the `docker buildx bake` command to build all the images in parallel.
+Now we don't need to provide the location of the Dockerfiles, build arguments, and other options in the command line. We can just run the `docker buildx bake` command to build all the images in parallel.
 
 I'll show you the demo of the above example at the end of this article.
 
@@ -271,23 +267,22 @@ I'll show you the demo of the above example at the end of this article.
 
 3. There are many options available for the `docker buildx bake` command. You can check the available options by running the `docker buildx bake --help` command.
 
-4. There is a Specific look up order for the Bake file. It looks for the Bake file in the following order:
+4. There is a specific lookup order for the Bake file. It looks for the Bake file in the following order:
    - The file specified using the `-f` flag.
    - `compose.yaml`
    - `compose.yml`
-    - `docker-compose.yml`
-    - `docker-compose.yaml`
-    - `docker-bake.json`
-    - `docker-bake.override.json`
-    - `docker-bake.hcl`
-    - `docker-bake.override.hcl`
-
+   - `docker-compose.yml`
+   - `docker-compose.yaml`
+   - `docker-bake.json`
+   - `docker-bake.override.json`
+   - `docker-bake.hcl`
+   - `docker-bake.override.hcl`
 
 ### Demo of Docker Buildx Bake:
 
 Let's see the demo of the above examples using Docker Buildx Bake.
 
-I'm gonna use the directory structure as I mentioned above for second use case(Build Multiple Images Parallely)
+I'm going to use the directory structure as I mentioned above for the second use case (Build Multiple Images in Parallel).
 
 ```
 .
@@ -300,7 +295,6 @@ I'm gonna use the directory structure as I mentioned above for second use case(B
     ├── Dockerfile
     ├── app.js
     └── package.json
-
 ```
 
 You can find all the files I used in this folder.
@@ -317,13 +311,13 @@ You can find all the files I used in this folder.
 
 ![Screenshot 2024-12-29 121406](https://github.com/user-attachments/assets/fbd6069c-0051-47a5-be05-3510af8082b5)
 
-Now I'm going to run `docker buildx bake` command to build the `frontend` and `backend` Images.
+Now I'm going to run the `docker buildx bake` command to build the `frontend` and `backend` images.
 
 ![Screenshot 2024-12-29 121443](https://github.com/user-attachments/assets/2c95d574-f614-4cef-b3a0-893e720fb770)
 
 ![Screenshot 2024-12-29 121459](https://github.com/user-attachments/assets/e4e5f8b3-b54e-4345-b993-1bba574a372d)
 
-Let's run the container from the Imnages,
+Let's run the container from the images,
 
 ![Screenshot 2024-12-29 121825](https://github.com/user-attachments/assets/940e0759-1739-4c06-9ee6-4f2ff665f0a0)
 
@@ -335,12 +329,10 @@ Accessing the `Frontend` and `Backend`:
 
 ![Screenshot 2024-12-29 122404](https://github.com/user-attachments/assets/07bba3b5-1909-4f2e-a9ee-8dc037f6a73a)
 
-
-
 ### Conclusion:
 
-This article is just a introduction to the `Docker Buildx Bake` feature. We have seen how to manage multiple build configurations and build multiple images in parallel using Docker Buildx Bake. Docker Buildx Bake is a powerful feature that helps in ease of use and maintainability for Build Configurations when running `docker buildx build` with multiple options. It also helps in building and pushing multiple images in parallel. We can declare all the build configurations in a single declarative file and run `docker buildx bake` to build all the images in parallel and without specifying all the build configurations in a single command.
+This article is just an introduction to the `Docker Buildx Bake` feature. We have seen how to manage multiple build configurations and build multiple images in parallel using Docker Buildx Bake. Docker Buildx Bake is a powerful feature that helps in ease of use and maintainability for Build Configurations when running `docker buildx build` with multiple options. It also helps in building and pushing multiple images in parallel. We can declare all the build configurations in a single declarative file and run `docker buildx bake` to build all the images in parallel without specifying all the build configurations in a single command.
 
 Refer to the official Docker documentation for more information on Docker Buildx Bake.
 
-Docker Buildx Bake: https://docs.docker.com/buildx/working-with-buildx/#buildx-bake
+Docker Buildx Bake: https://docs.docker.com/build/bake/
