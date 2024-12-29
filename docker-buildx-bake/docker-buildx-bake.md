@@ -278,6 +278,13 @@ I'll show you the demo of the above example at the end of this article.
    - `docker-bake.hcl`
    - `docker-bake.override.hcl`
 
+5. Bake also supports converting a Docker Compose file into a Bake file.
+
+```
+docker buildx bake --print
+```
+The above command will convert the docker-compose.yaml file into a Bake JSON file output.
+
 ### Demo of Docker Buildx Bake:
 
 Let's see the demo of the above examples using Docker Buildx Bake.
