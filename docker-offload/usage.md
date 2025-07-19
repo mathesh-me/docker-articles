@@ -15,6 +15,9 @@ Docker Offload is a feature that lets you build and run containers on cloud infr
 
 ### How it Works
 
+<img width="8110" height="3089" alt="image" src="https://github.com/user-attachments/assets/1f87fdde-7f12-4faf-bc0f-08827f720722" />
+
+
 - Docker Desktop connects to the cloud and triggers container builds and runs on cloud infrastructure.
 - `docker offload`  pulls images and starts containers in the cloud, using your specified GPU, CPU, and memory configurations.
 - The connection stays open while the container is running, so you can interact with it in real time.
