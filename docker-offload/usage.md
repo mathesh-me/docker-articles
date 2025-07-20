@@ -2,12 +2,12 @@
 
 ### Introduction
 
-Docker Offload is a feature that lets you build and run containers on cloud infrastructure, reducing the load on your local machine and improving performance for resource-intensive applications. It also supports GPU-accelerated instances, which is great for machine learning, data processing, and other high-compute workloads.
+Docker Offload is a feature that lets you build and run containers on cloud infrastructure, reducing the load on your local machine and improving performance for resource intensive applications. It also supports GPU accelerated instances, which is great for machine learning, data processing, and other high compute workloads.
 
 ### Features
 
 - **Cloud-based Containerization**: Run Docker containers on cloud platforms to leverage scalable resources.
-- **GPU Support**: Use NVIDIA L4 GPU-backed environments for high-performance computing needs.
+- **GPU Support**: Use NVIDIA L4 GPU backed environments for high-performance computing needs.
 - **Resource Optimization**: Offload heavy tasks to the cloud, freeing up your local resources.
 - **Ephemeral Cloud Runners**: Automatically provision and tear down cloud environments for each container session.
 - **Seamless Integration**: Works smoothly with your existing Docker workflows and tools.
@@ -15,11 +15,10 @@ Docker Offload is a feature that lets you build and run containers on cloud infr
 
 ### How it Works
 
-<img width="8110" height="3089" alt="image" src="https://github.com/user-attachments/assets/1f87fdde-7f12-4faf-bc0f-08827f720722" />
-
+<img width="8201" height="2589" alt="docker-offload" src="https://github.com/user-attachments/assets/1c129772-2fa1-4d6e-b523-71bfb0d064fa" />
 
 - Docker Desktop connects to the cloud and triggers container builds and runs on cloud infrastructure.
-- `docker offload`  pulls images and starts containers in the cloud, using your specified GPU, CPU, and memory configurations.
+- `docker offload`  pulls images and starts containers in the cloud.
 - The connection stays open while the container is running, so you can interact with it in real time.
 - The cloud environment is ephemeral—created for the duration of your session and destroyed afterward, so there are no leftover resources.
 
@@ -87,7 +86,7 @@ You should see `docker-cloud` as the current context.
      <img width="1919" height="715" alt="Screenshot 2025-07-19 191447" src="https://github.com/user-attachments/assets/c94f809e-6b0b-41f5-9626-efb17a600f96" />
 
 
-3. To run an Nginx container and access it from your browser:
+3. Let’s run an Nginx container and check if we can access it from the local machine,
      ```bash
      docker run --name offload-nginx -d -p 8081:80 nginx
      ```
@@ -98,7 +97,8 @@ You should see `docker-cloud` as the current context.
 
 <img width="1919" height="1020" alt="Screenshot 2025-07-19 191650" src="https://github.com/user-attachments/assets/a40342b2-212c-4745-8c5d-1ee04d1af516" />
 
-5. To see which containers and images are running in the cloud, use the Docker Desktop Offload dashboard or run:
+5. Although the container is running in the cloud, we can access it as if it’s running locally. This demonstrates the power of Docker offload.
+6. To see which containers and images are running in the cloud, use the Docker Desktop Offload dashboard or run:
      ```bash
      docker offload ps
      docker offload images
@@ -118,7 +118,7 @@ You can stop Docker Offload in two ways:
         ```bash
         docker offload stop
         ```
-    - You’ll be prompted to confirm, and once confirmed, Docker Offload will stop.
+    - You’ll be prompted to confirm and once confirmed. Docker Offload will stop.
     
     <img width="1919" height="290" alt="Screenshot 2025-07-19 192932" src="https://github.com/user-attachments/assets/b51f6d3e-a350-43b5-949c-126daedbc845" />
 
@@ -150,6 +150,12 @@ docker rmi <image_id>
 ### Other Useful Docker Offload Configurations
 
 - **Disk Allocation**: Configure how much disk space to allocate for Shared Cache in the Docker Offload settings.
-- **Private Resource Access**: Allow cloud builders to pull images and packages from private resources—useful for corporate environments with private registries.
+- **Private Resource Access**: Allow cloud builders to pull images and packages from private resources useful for corporate environments with private registries.
 - **Authentication**: Docker Offload supports authentication for private registries, so you can pull images securely.
 - **Firewall Rules**: Configure firewall rules to control access from the cloud builder to egress IP addresses, ensuring secure communication between your local machine and the cloud environment.
+
+Go to https://app.docker.com/ → Offload → Builder Settings to configure these settings<br>
+
+#### References:
+
+[Docker Offload](https://docs.docker.com/offload/)
